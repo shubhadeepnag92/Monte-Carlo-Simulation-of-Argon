@@ -13,7 +13,7 @@
 
 !	OPEN FILES
 	open(unit=1,file='inputparameter.dat')
-	open(unit=2,file='in.dat')
+	open(unit=2,file='in_mcargon.dat')
 	open(unit=3,file='simu.xyz')
 	open(unit=4,file='ene.dat')
 	open(unit=5,file='output.dat')
