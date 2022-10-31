@@ -13,7 +13,7 @@
 
 !	OPEN FILES
 	open(unit=1,file='inputparameter.dat')
-	open(unit=2,file='in.dat')
+	open(unit=2,file='in_mcargon.dat')
 	open(unit=3,file='finalconfi.xyz')
 	open(unit=6,file='rdf.dat')
 	open(unit=15,file='positionofneighbor.dat')
