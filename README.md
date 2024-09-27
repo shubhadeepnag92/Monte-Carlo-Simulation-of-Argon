@@ -77,6 +77,68 @@ To modify the simulation:
 - Adjust the Lennard-Jones parameters (`eps`, `sgmahex`, `sgmatwlv`) to simulate different interaction strengths.
 - Increase or decrease the number of atoms by modifying `nx` in `inputparameter.dat`.
 
+
+
+# FORTRAN Program to Calculate Radial Distribution Function (RDF) of Liquid Argon
+
+## Overview
+
+This program calculates the Radial Distribution Function for a simulated liquid Argon system. RDF is a crucial property that gives insights into the structure of a liquid by measuring how the density of particles varies as a function of distance from a reference particle. The program reads the atomic configuration from a file, computes distances between particle pairs using the minimum image convention, and calculates the RDF for the system.
+
+## Files
+
+1. **inputparameter.dat**: Contains parameters for the simulation, such as the number of unit cells and unit cell length.
+2. **in_mcargon.dat**: Contains input data such as random seed, maximum displacement, LJ potential parameters, and temperature.
+3. **finalconfi.xyz**: Holds the final configuration of atoms (positions) from a previous simulation.
+4. **rdf.dat**: The output file where the calculated RDF values are stored.
+5. **positionofneighbor.dat**: Logs the distances between neighboring particles and their corresponding bin values.
+
+## Program Structure
+
+1. **Initialization**:
+   - The program reads simulation parameters from `inputparameter.dat` and `in_mcargon.dat`.
+   - The size of the simulation box and the number of atoms are calculated based on the unit cell length and the number of unit cells.
+   - The initial atomic configuration is read from the file `finalconfi.xyz`.
+
+2. **Radial Distribution Function (RDF) Calculation**:
+   - For each pair of atoms, the program computes the distance between them using the minimum image convention.
+   - The distances are sorted into bins, each representing a specific distance interval.
+   - The RDF is calculated by counting how many pairs of atoms fall within each distance bin and normalizing it by the total number of atoms and bin volume.
+
+3. **Output**:
+   - The RDF values are written to `rdf.dat` for each distance bin.
+   - The distances between pairs of atoms and their corresponding bin values are written to `positionofneighbor.dat`.
+
+## Running the Program
+
+1. Prepare the input files (`inputparameter.dat`, `in_mcargon.dat`, `finalconfi.xyz`).
+2. Compile and run the program:
+   ```
+   gfortran rdf_mcargon.f95 -o rdf
+   ./rdf
+   ```
+3. The program will generate the following output files:
+   - **rdf.dat**: Contains the radial distribution function for different distances.
+   - **positionofneighbor.dat**: Logs the pairwise distances and the corresponding bin indices.
+
+## Important Outputs
+
+- **RDF (rdf.dat)**: The file contains three columns:
+  - The first column is the radial distance from the reference particle.
+  - The second column shows the number of particle pairs at that distance.
+  - The third column gives the RDF value for that distance.
+  
+  The RDF describes how the probability of finding a particle at a distance `r` from a reference particle changes as `r` increases.
+
+- **Neighbor Information (positionofneighbor.dat)**: Logs the distances between atom pairs, the corresponding bin, and normalization data for further analysis.
+
+## Modifications
+
+To modify the simulation:
+- Adjust the bin size by modifying the divisor used in `sqrt(rsqr)/0.001d0`.
+- Change the system size by modifying `nx` and `unitcelllength` in `inputparameter.dat`.
+- Tweak Lennard-Jones parameters (`eps`, `sgmahex`, `sgmatwlv`) to simulate different interaction strengths between Argon atoms.
+
 ## Contact
 
 For any issues or questions, please contact the author of the code (shubhadeepnag92@gmail.com).
